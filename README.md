@@ -3,7 +3,7 @@
 The React frontend for HireWave, a full-stack job board platform connecting companies with candidates.
 
 🔗 **Live Demo:** [hirewave-client.vercel.app](https://hire-wave-client-zwag.vercel.app/)
-🔗 **Backend API:** [hirewave.somee.com](https://jobboardapi-production.up.railway.app/swagger/index.html)
+🔗 **Backend API:** [hirewave.Railway.com](https://jobboardapi-production.up.railway.app/swagger/index.html)
 🔗 **Backend Repo:** [github.com/Hazem18/JobBoardAPI](https://github.com/Hazem18/JobBoardAPI)
 
 ---
