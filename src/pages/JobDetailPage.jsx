@@ -8,14 +8,14 @@ export default function JobDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [job, setJob] = useState(null)
-  const [userProfile, setUserProfile] = useState(null) // Added for AI context
+  const [userProfile, setUserProfile] = useState(null) 
   const [loading, setLoading] = useState(true)
   const [applying, setApplying] = useState(false)
   const [applied, setApplied] = useState(false)
   const [error, setError] = useState("")
   const [coverLetter, setCoverLetter] = useState("")
   const [showForm, setShowForm] = useState(false)
-  const [generatingAI, setGeneratingAI] = useState(false) // Added for button state
+  const [generatingAI, setGeneratingAI] = useState(false) 
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
 
@@ -26,10 +26,10 @@ export default function JobDetailPage() {
         const jobRes = await axios.get(`${API_URL}/jobs/${id}`)
         setJob(jobRes.data)
 
-        // Fetch User Profile (Safely, so page doesn't crash if it fails)
+        // Fetch User Profile using the candidate-specific endpoint
         if (token && role === "Candidate") {
           try {
-            const profileRes = await axios.get(`${API_URL}/profile`, {
+            const profileRes = await axios.get(`${API_URL}/candidates/me`, {
               headers: { Authorization: `Bearer ${token}` }
             })
             setUserProfile(profileRes.data)
@@ -46,7 +46,6 @@ export default function JobDetailPage() {
     fetchData()
   }, [id, token, role, navigate])
 
-  // New function to call your AIController/cover-letter endpoint
   const handleGenerateAI = async () => {
     setGeneratingAI(true)
     setError("")
@@ -99,7 +98,6 @@ export default function JobDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
       <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
@@ -115,7 +113,6 @@ export default function JobDetailPage() {
       </nav>
 
       <div className="max-w-4xl mx-auto px-6 py-10">
-        {/* Job Header */}
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 mb-6">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-4">
@@ -154,7 +151,6 @@ export default function JobDetailPage() {
             </span>
           </div>
 
-          {/* Apply Button */}
           {role === "Candidate" && (
             <>
               {applied ? (
@@ -173,7 +169,6 @@ export default function JobDetailPage() {
                       <label className="text-sm font-semibold text-gray-700">
                         Cover Letter
                       </label>
-                      {/* NEW AI GENERATE BUTTON */}
                       <button
                         type="button"
                         onClick={handleGenerateAI}
@@ -229,7 +224,6 @@ export default function JobDetailPage() {
           )}
         </div>
 
-        {/* Job Description */}
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Job Description</h2>
           <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{job.description}</p>
